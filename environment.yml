@@ -1,0 +1,11 @@
+name: venv
+channels:
+  - defaults
+dependencies:
+  - pip
+  - pip:
+    - django
+    - djangorestframework
+    - pyyaml
+    - requests
+    - django-cors-headers
