@@ -1,20 +1,19 @@
 import json
-from django.http import JsonResponse
+
+# from django.http import JsonResponse
+from django.forms.models import model_to_dict
+
+from products.models import Product
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
+@api_view(["GET"])
 def api_home(request, *args, **kwargs):
-    body = request.body
-    print("query param: ", request.GET)
-    print(body)
-
+    """api view"""
+    model_data = Product.objects.all().order_by("?").first()
     data = {}
-    try:
-        data = json.loads(body)
-    except:
-        pass
-    print(data)
+    if model_data:
+        data = model_to_dict(model_data, fields=["id", "title", "price"])
 
-    data["params"] = dict(request.GET)
-    data["headers"] = dict(request.headers)
-    data["content_type"] = request.content_type
-    return JsonResponse(data)
+    return Response(data)
