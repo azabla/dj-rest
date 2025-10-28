@@ -6,7 +6,7 @@ username = input("What is your username?\n")
 password = getpass("What is you password?\n")
 
 get_auth_response = requests.post(
-    auth_endpoint, json={"username": "andu", "password": password}
+    auth_endpoint, json={"username": username, "password": password}
 )
 print(get_auth_response.json())
 
